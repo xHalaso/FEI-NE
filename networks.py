@@ -3,9 +3,9 @@ import torch.nn as nn
 import numpy as np
 
 class NeuralNetwork(nn.Module):
-    def __init__(self):
+    def __init__(self,config):
         super(NeuralNetwork, self).__init__()
-        self.layers = None
+        self.createNN(config.get("in"),config.get("out"),config.get("hidden"))
 
     def createNN(self, input_size, output_size, hidden_layers):
         modules = []
@@ -21,15 +21,6 @@ class NeuralNetwork(nn.Module):
 
         # Vytvorenie sekvencie modulov
         self.layers = nn.Sequential(*modules)
-
-    # def forward(self, x):
-    #     if self.layers:
-    #         for layer in self.layers:
-    #             x = nn.Tanh(layer(x))
-    #         return x
-    #         # return self.layers(x)
-    #     else:
-    #         raise Exception("Neurónová sieť nebola vytvorená. Použite metódu createNN.")
         
     def forward(self, x):
         if not self.layers:
@@ -84,3 +75,10 @@ class NeuralNetwork(nn.Module):
   
 # # Displaying the initialized weights 
 # print(linear_layer.weight) 
+
+
+
+    # nn_model.getWeight()
+
+    # output = nn_model(torch.tensor([5,5,5,5]).float())  
+    # print(output)

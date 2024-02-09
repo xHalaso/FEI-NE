@@ -10,19 +10,22 @@ class genome():
         self.genomes = np.array([]) 
         self.NumOfGenomes = 0
         self.model = model
-        self.crossConfig = config.get("crossConfig")
         self.debug = debug
+        
+        self.crossConfig = config.get("crossConfig")
+        self.wRange = config.get("weightRange")
+        self.popsize = config.get("popSize")
         
         if(self.debug):
             print("\n", 
                   f"Crossover Config: {self.crossConfig}\n",
                   f"ANN Model: {self.model}\n" )
          
-    def generPop(self,n):
+    def generPop(self):
         #
         self.genomes = self.model.getWeight2Array() 
-        for gen in range(n-1):
-            self.model.generGenomeWeight(2)
+        for gen in range(self.popsize-1):
+            self.model.generGenomeWeight(self.wRange)
             self.genomes = np.vstack((self.genomes,self.model.getWeight2Array()) )
         
         if self.debug: print(self.genomes)
