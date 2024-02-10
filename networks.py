@@ -11,7 +11,7 @@ class NeuralNetwork(nn.Module):
         
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.to(device)
-        if self.debug: print("Device for calculation ANN: ",device)
+        if self.debug: print(f"\n Device for calculation ANN: {device}\n")
     
 
     def createNN(self, input_size, output_size, hidden_layers):
