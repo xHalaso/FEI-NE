@@ -12,9 +12,7 @@ if __name__ == '__main__':
     pop=p.Population(configs.getSubPops(),True,2)
     pop.generPop(nn_model)
     
-    pop.crossGenomes()
-    
-    pop.globalMut()
+    pop.gaLoop()
     #pop.createSpaceAmp()
     
     #nn_model.createNN(1, 2, [2])  # Príklad: 4 vstupy, 2 výstupy, skryté vrstvy [3, 10, 5]

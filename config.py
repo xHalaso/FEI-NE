@@ -1,4 +1,5 @@
 class configLoad():
+    #todo load from file
     def __init__(self):
         self.crossConfig = dict(
             typeOfCross = "crossov", 
