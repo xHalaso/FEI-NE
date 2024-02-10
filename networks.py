@@ -3,9 +3,16 @@ import torch.nn as nn
 import numpy as np
 
 class NeuralNetwork(nn.Module):
-    def __init__(self,config):
+    def __init__(self,config,debug):
         super(NeuralNetwork, self).__init__()
         self.createNN(config.get("in"),config.get("out"),config.get("hidden"))
+        self.act = config.get("act")
+        self.debug = debug
+        
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.to(device)
+        if self.debug: print("Device for calculation ANN: ",device)
+    
 
     def createNN(self, input_size, output_size, hidden_layers):
         modules = []
@@ -25,17 +32,24 @@ class NeuralNetwork(nn.Module):
     def forward(self, x):
         if not self.layers:
             raise Exception("Neurónová sieť nebola vytvorená. Použite metódu createNN.")
-        x = torch.tanh(x)                           # Input Nodes
+        x = self.callActFunc(x)                           # Input Nodes
         for i, layer in enumerate(self.layers):
             x = layer(x)
             if i < len(self.layers) - 1:            # Hidden Nodes
-                x = torch.tanh(x)
+                x = self.callActFunc(x)
             else:                                   # Output Nodes
-                x = torch.tanh(x)
+                x = self.callActFunc(x)
         return x
     
         # zeros initialization method 
         # torch.nn.init.zeros_(linear_layer.weight) 
+        
+    def callActFunc(self,x):
+        if self.act == "tanh" : return torch.tanh(x)
+        elif self.act == "sigmoid": return torch.sigmoid(x)
+        elif self.act == "clamp": return torch.clamp(x)
+        else: return torch.relu(x)
+        
         
     def generGenomeWeight(self,rangeW):
         # User defined function to initialize the weights

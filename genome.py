@@ -30,6 +30,9 @@ class genome():
         
         if self.debug: print(self.genomes)
     
+    def selection(self):
+        pass
+    
     def crossGenomes(self):
         if self.debug: oldpop = np.copy(self.genomes)
             
