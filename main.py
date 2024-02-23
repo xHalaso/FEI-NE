@@ -9,7 +9,7 @@ if __name__ == '__main__':
     nn_model = nn.NeuralNetwork(configs.getModel(),True)
     
     print(configs.mutationConfig.get("global").get("rate"))
-    pop=p.Population(configs.getSubPops(),True,2)
+    pop=p.Population(configs.getPops(),True,2)
     pop.generPop(nn_model)
     
     pop.gaLoop()

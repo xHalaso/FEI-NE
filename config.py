@@ -9,11 +9,14 @@ class configLoad():
             'global'    : {"func": "mutx" ,"rate": 0.1},
             'local'     : {"func": "muta" ,"rate": 0.15, "ampdelimiter":100},
         }
-        self.subPop1 = { 
+        self.Pop = { 
                     'crossConfig'       : self.crossConfig,
                     'mutationConfig'    : self.mutationConfig,
                     'popSize'           : 5,
-                    'weightRange'       : 5
+                    'weightRange'       : 5,
+                    'elit'              : 10,
+                    'sels'              : 80,
+                    'seltourn'          : 10
                     }
 
         self.modelConfig = { 
@@ -22,7 +25,7 @@ class configLoad():
                         'hidden'        : [2,2],
                         'act'           : "tanh"
                         }
-    def getSubPops(self):
-        return self.subPop1
+    def getPops(self):
+        return self.Pop
     def getModel(self):
         return self.modelConfig

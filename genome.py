@@ -5,6 +5,9 @@ import networks as net
 import genetic_all as ga
 import itertools
 
+#todo remove random
+import random
+
 class genome():
     # todo div to genome(only genome info) and Pop(gener genomes, Ga operation etc) 
     id_iter = itertools.count()
@@ -13,7 +16,7 @@ class genome():
         self.id = next(self.id_iter)
         self.model = model
         self.gen    = None
-        self.fitness = None
+        self.fitness = random.uniform(-250,0)
         self.debug = False
         self.regenWeight(weightRange)
 

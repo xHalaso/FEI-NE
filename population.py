@@ -2,6 +2,7 @@ import numpy as np
 import genome as g
 import genetic_all as ga
 
+
 class Population():
     def __init__(self,config,debug,debugL):
         self.crossConfig = config.get("crossConfig")
@@ -34,8 +35,13 @@ class Population():
         if self.genomes[0].gen.size != None:
             self.space = np.array([np.ones(self.genomes[0].gen.size) * (-self.wRange), np.ones(self.genomes[0].gen.size) * self.wRange])
             self.amp = self.space[1, :] / self.mutationConfig.get("local").get("ampdelimiter")
-        
-    def selection(self, newpop):
+    
+    def sortByFitness(self):
+        # print([gen.fitness for gen in self.genomes])
+        self.genomes = sorted(self.genomes, key=lambda genome: genome.fitness)
+        # print([gen.fitness for gen in self.genomes])
+    
+    def selection(self, newpop, fit):
         pass
     
     def crossGenomes(self, newpop):
@@ -53,10 +59,15 @@ class Population():
         
     def gaLoop(self):
         #todo making subPops via selections
+        #call fitness ...
+        self.sortByFitness()
+        
         newpop=np.array([gen.gen for gen in self.genomes])
+        fit=np.array([gen.fitness for gen in self.genomes])
+        
         if ((self.debug) and (self.debugL>=2)): oldpop=np.copy(newpop); print(oldpop)
         
-        # self.selection(newpop)
+        self.selection(newpop,fit)
         self.crossGenomes(newpop)
         self.Mut(newpop)
         
